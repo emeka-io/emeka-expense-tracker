@@ -540,4 +540,5 @@ class ExpenseApp(tk.Tk):
 # Run
 if __name__ == '__main__':
     app = ExpenseApp()
+    
     app.mainloop()
