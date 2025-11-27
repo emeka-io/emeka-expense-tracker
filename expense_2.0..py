@@ -8,9 +8,7 @@ from tkinter import ttk, messagebox, filedialog
 DATA_FILE = "expenses_premium.json"
 
 
-# ------------------------------------------------
 # Save / Load
-# ------------------------------------------------
 def load_data():
     if not os.path.exists(DATA_FILE):
         return {"expenses": [], "budget": 0.0}
@@ -26,9 +24,7 @@ def save_data(data):
         json.dump(data, f, indent=2)
 
 
-# ------------------------------------------------
 # Themes
-# ------------------------------------------------
 class Theme:
     DARK = {
         "bg": "#0D1117",
@@ -59,9 +55,7 @@ class Theme:
     }
 
 
-# ------------------------------------------------
 # App
-# ------------------------------------------------
 class ExpenseApp(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -81,9 +75,8 @@ class ExpenseApp(tk.Tk):
         self.show_frame("dashboard")
         self.refresh_dashboard()
 
-    # ------------------------------------------------
+
     # Theme Apply
-    # ------------------------------------------------
     def _apply_theme(self):
         t = self.current_theme
         self.configure(bg=t["bg"])
@@ -136,9 +129,8 @@ class ExpenseApp(tk.Tk):
         elif isinstance(w, tk.Entry):
             w.configure(bg=t["card"], fg=t["fg"], insertbackground=t["fg"])
 
-    # ------------------------------------------------
+
     # Layout
-    # ------------------------------------------------
     def _build_layout(self):
         self.sidebar = tk.Frame(self, width=220)
         self.sidebar.pack(side="left", fill="y")
@@ -190,9 +182,8 @@ class ExpenseApp(tk.Tk):
                                      bg=t["panel"], fg=t["muted"])
         self.budget_label.pack(anchor="w", padx=16, pady=(4, 0))
 
-    # ------------------------------------------------
+    
     # Pages
-    # ------------------------------------------------
     def _build_pages(self):
         self.frames = {}
 
@@ -209,9 +200,8 @@ class ExpenseApp(tk.Tk):
         self._page_reports(self.frames["reports"])
         self._page_settings(self.frames["settings"])
 
-    # ------------------------------------------------
+    
     # Dashboard Page
-    # ------------------------------------------------
     def _page_dashboard(self, parent):
         t = self.current_theme
 
@@ -270,9 +260,9 @@ class ExpenseApp(tk.Tk):
                              values=(e["date"], e["category"], e["description"],
                                      f"₦{e['amount']:.2f}"))
 
-    # ------------------------------------------------
+    
     # Add Page
-    # ------------------------------------------------
+    
     def _page_add(self, parent):
         t = self.current_theme
 
@@ -331,9 +321,9 @@ class ExpenseApp(tk.Tk):
 
         messagebox.showinfo("Success", "Expense added.")
 
-    # ------------------------------------------------
+    
     # Reports
-    # ------------------------------------------------
+    
     def _page_reports(self, parent):
         t = self.current_theme
 
@@ -373,9 +363,9 @@ class ExpenseApp(tk.Tk):
         self.report_text.delete("1.0", tk.END)
         self.report_text.insert(tk.END, "\n".join(lines))
 
-    # ------------------------------------------------
+    
     # Settings Page
-    # ------------------------------------------------
+    
     def _page_settings(self, parent):
         t = self.current_theme
 
@@ -416,9 +406,9 @@ class ExpenseApp(tk.Tk):
         self.refresh_dashboard()
         messagebox.showinfo("Success", "Budget saved")
 
-    # ------------------------------------------------
+    
     # Misc
-    # ------------------------------------------------
+    
     def clear_all_data(self):
         if messagebox.askyesno("Confirm", "Clear ALL data?"):
             self.data = {"expenses": [], "budget": 0}
@@ -463,8 +453,7 @@ class ExpenseApp(tk.Tk):
         messagebox.showinfo("Saved", "Report exported successfully.")
 
 
-# ------------------------------------------------
+
 # Run
-# ------------------------------------------------
 if __name__ == "__main__":
     ExpenseApp().mainloop()
